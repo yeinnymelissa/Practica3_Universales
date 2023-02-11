@@ -1,10 +1,13 @@
 package com.practica3.seguni.entity;
 
 import java.io.Serializable;
+import java.util.List;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -47,7 +50,9 @@ public class Clientes implements Serializable{
 	@Column(name="OBSERVACIONES")
 	private String observaciones;
 
-
+	@OneToMany(mappedBy="dniCl")
+    private List<Seguros> seguro;
+	
 	public String getDniCl() {
 		return dniCl;
 	}
@@ -134,6 +139,14 @@ public class Clientes implements Serializable{
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+
+	public List<Seguros> getSeguro() {
+		return seguro;
+	}
+
+	public void setSeguro(List<Seguros> seguro) {
+		this.seguro = seguro;
 	}
 	
 	

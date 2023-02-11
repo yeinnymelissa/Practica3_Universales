@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class JwtFilterConfig {
 	@Bean
     FilterRegistrationBean<JwtFilter> jwtFilter() {
-        FilterRegistrationBean<JwtFilter>  filter= new FilterRegistrationBean<JwtFilter>();
+        FilterRegistrationBean<JwtFilter>  filter= new FilterRegistrationBean<>();
         filter.setFilter(new JwtFilter());
         
        filter.addUrlPatterns("/seguni/auth/*");   

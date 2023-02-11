@@ -1,45 +1,25 @@
-package com.practica3.seguni.entity;
+package com.practica3.seguni.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name="SEGUROS")
-public class Seguros implements Serializable{
+public class SegurosDTO implements Serializable{
 
-	private static final long serialVersionUID = -2878084880149477798L;
+	private static final long serialVersionUID = 6065330753942283864L;
 
-	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO,
-		generator="sequenciaSeguros") 
-	@SequenceGenerator(name="sequenciaSeguros",sequenceName="sec_seguros", allocationSize=1)
-	@Column(name="NUMERO_POLIZA")
 	private int numeroPoliza;
 	
-	@Column(name="RAMO")
 	private String ramo;
 	
-	@Column(name="FECHA_INICIO")
 	private Date fechaInicio;
 	
-	@Column(name="FECHA_VENCIMIENTO")
 	private Date fechaVencimiento;
 	
-	@Column(name="CONDICIONES_PARTICULARES")
 	private String condicionesParticulares;
 	
-	@Column(name="OBSERVACIONES")
 	private String observaciones;
 	
-	@Column(name="DNI_CL")
 	private String dniCl;
 
 	public int getNumeroPoliza() {
@@ -97,5 +77,4 @@ public class Seguros implements Serializable{
 	public void setDniCl(String dniCl) {
 		this.dniCl = dniCl;
 	}
-	
 }
