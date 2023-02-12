@@ -2,12 +2,14 @@ package com.practica3.seguni.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -41,6 +43,9 @@ public class Seguros implements Serializable{
 	
 	@Column(name="DNI_CL")
 	private String dniCl;
+	
+	@OneToMany(mappedBy="numeroPoliza")
+    private List<Siniestros> siniestro;
 
 	public int getNumeroPoliza() {
 		return numeroPoliza;
@@ -96,6 +101,14 @@ public class Seguros implements Serializable{
 
 	public void setDniCl(String dniCl) {
 		this.dniCl = dniCl;
+	}
+
+	public List<Siniestros> getSiniestros() {
+		return siniestro;
+	}
+
+	public void setSiniestros(List<Siniestros> siniestro) {
+		this.siniestro = siniestro;
 	}
 	
 }

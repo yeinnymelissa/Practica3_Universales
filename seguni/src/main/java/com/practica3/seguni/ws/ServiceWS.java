@@ -9,14 +9,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.practica3.seguni.dto.ClientesDTO;
+import com.practica3.seguni.dto.CompaniasDTO;
+import com.practica3.seguni.dto.CompaniasSegurosDTO;
+import com.practica3.seguni.dto.PeritosDTO;
 import com.practica3.seguni.dto.SegurosDTO;
+import com.practica3.seguni.dto.SiniestrosDTO;
 import com.practica3.seguni.dto.UsuariosDTO;
 import com.practica3.seguni.entity.Clientes;
+import com.practica3.seguni.entity.Companias;
+import com.practica3.seguni.entity.CompaniasSeguros;
+import com.practica3.seguni.entity.Peritos;
 import com.practica3.seguni.entity.Seguros;
+import com.practica3.seguni.entity.Siniestros;
 import com.practica3.seguni.entity.Usuarios;
 import com.practica3.seguni.jwt.JwtTokenInterface;
 import com.practica3.seguni.repository.ClientesRepository;
+import com.practica3.seguni.repository.CompaniasRepository;
+import com.practica3.seguni.repository.CompaniasSegurosRepository;
+import com.practica3.seguni.repository.PeritosRepository;
 import com.practica3.seguni.repository.SegurosRepository;
+import com.practica3.seguni.repository.SiniestrosRepository;
 import com.practica3.seguni.repository.UsuariosRepository;
 import com.practica3.seguni.service_interface.ServiceInt;
 
@@ -34,6 +46,18 @@ public class ServiceWS implements ServiceInt{
 	
 	@Autowired
 	SegurosRepository sr;
+	
+	@Autowired
+	SiniestrosRepository sir;
+	
+	@Autowired
+	PeritosRepository pr;
+	
+	@Autowired
+	CompaniasRepository comr;
+	
+	@Autowired
+	CompaniasSegurosRepository csr;
 	
 	@Override
 	public List<Clientes> buscarClientes() {
@@ -86,6 +110,13 @@ public class ServiceWS implements ServiceInt{
 		if(cliDel.isPresent()){
 			
 			List<Seguros> seg = cliDel.get().getSeguro();
+			for(Seguros segu : seg) {
+				Optional<Seguros> segDel = sr.findById(segu.getNumeroPoliza());
+				if(segDel.isPresent()) {
+					sir.deleteAll(segDel.get().getSiniestros());
+					sr.delete(segDel.get());
+				}
+			}
 			sr.deleteAll(seg);
 			
 			cr.delete(cliDel.get());
@@ -116,7 +147,14 @@ public class ServiceWS implements ServiceInt{
 
 	@Override
 	public void eliminarSeguro(Integer id) {
-		sr.deleteById(id);
+		Optional<Seguros> segDel = sr.findById(id);
+		
+		if(segDel.isPresent()){
+			
+			List<Siniestros> siniestros = segDel.get().getSiniestros();
+			sir.deleteAll(siniestros);
+			sr.deleteById(id);
+		}
 	}
 
 	@Override
@@ -134,6 +172,152 @@ public class ServiceWS implements ServiceInt{
 		}
 	}
 
+	@Override
+	public List<Siniestros> buscarSiniestros() {
+		for(Siniestros sin : sir.findAll()) {
+			if(sin.getPerito() == null) {
+				sir.delete(sin);
+			}
+		}
+		return sir.findAll();
+	}
 
+	@Override
+	public Siniestros guardarSiniestros(SiniestrosDTO siniestro) {
+		
+		Siniestros sin = new Siniestros();
+		
+		sin.setIdSiniestro(siniestro.getIdSiniestro());
+		sin.setFechaSiniestro(siniestro.getFechaSiniestro());
+		sin.setCausas(siniestro.getCausas());
+		sin.setAceptado(siniestro.getAceptado());
+		sin.setIndemnizacion(siniestro.getIndemnizacion());
+		sin.setNumeroPoliza(siniestro.getNumeroPoliza());
+		sin.setPerito(siniestro.getPerito());
+		
+		return sir.save(sin);
+	}
+
+	@Override
+	public void eliminarSiniestro(Integer id) {
+		Optional<Siniestros> sinDel = sir.findById(id);
+		
+		if(sinDel.isPresent()){
+			sir.deleteById(id);
+		}
+	}
+
+	@Override
+	public void actualizarSiniestro(SiniestrosDTO siniestro) {
+		Optional<Siniestros> sinUp = sir.findById(siniestro.getIdSiniestro());
+		
+		if(sinUp.isPresent()){
+			sinUp.get().setFechaSiniestro(siniestro.getFechaSiniestro());
+			sinUp.get().setCausas(siniestro.getCausas());
+			sinUp.get().setAceptado(siniestro.getAceptado());
+			sinUp.get().setIndemnizacion(siniestro.getIndemnizacion());
+			sinUp.get().setNumeroPoliza(siniestro.getNumeroPoliza());
+			sinUp.get().setPerito(siniestro.getPerito());
+			sir.save(sinUp.get());
+		}
+	}
+
+	@Override
+	public List<Peritos> buscarPeritos() {
+		return pr.findAll();
+	}
+
+	@Override
+	public Peritos guardarPeritos(PeritosDTO perito) {
+		Peritos peri = new Peritos();
+		
+		peri.setDniPerito(perito.getDniPerito());
+		peri.setNombrePerito(perito.getNombrePerito());
+		peri.setApellidoPerito1(perito.getApellidoPerito1());
+		peri.setApellidoPerito2(perito.getApellidoPerito2());
+		peri.setTelefonoContacto(perito.getTelefonoContacto());
+		peri.setTelefonoOficina(perito.getTelefonoOficina());
+		peri.setClaseVia(perito.getClaseVia());
+		peri.setNombreVia(perito.getNombreVia());
+		peri.setNumeroVia(perito.getNumeroVia());
+		peri.setCodPostal(perito.getCodPostal());
+		peri.setCiudad(perito.getCiudad());
+		return pr.save(peri);
+	}
+
+	@Override
+	public void eliminarPeritos(String id) {
+		Optional <Peritos> periDel =  pr.findById(id);
+		if(periDel.isPresent()) {
+			pr.delete(periDel.get());
+		}
+	}
+
+	@Override
+	public List<Companias> buscarCompanias() {
+		return comr.findAll();
+	}
+
+	@Override
+	public Companias guardarCompanias(CompaniasDTO compania) {
+		Companias compa = new Companias();
+		
+		compa.setNombreCompania(compania.getNombreCompania());
+		compa.setClaseVia(compania.getClaseVia());
+		compa.setNombreVia(compania.getNombreVia());
+		compa.setNumeroVia(compania.getNumeroVia());
+		compa.setCodPostal(compania.getCodPostal());
+		compa.setTelefonoContratacion(compania.getTelefonoContratacion());
+		compa.setTelefonoSiniestros(compania.getTelefonoSiniestros());
+		compa.setNotas(compania.getNotas());
+		return comr.save(compa);
+	}
+
+	@Override
+	public void eliminarCompanias(String id) {
+		Optional<Companias> comDel = comr.findById(id);
+		
+		if(comDel.isPresent()){
+			comr.deleteById(id);
+		}
+	}
+
+	@Override
+	public List<CompaniasSeguros> buscarCompaniaSeguros() {
+		return csr.findAll();
+	}
+
+	@Override
+	public CompaniasSeguros guardarCompaniaSeguros(CompaniasSegurosDTO comseg) {
+		CompaniasSeguros comSeguros = new CompaniasSeguros();
+		
+		comSeguros.setId(comseg.getId());
+		comSeguros.setNombreCompania(comseg.getNombreCompania());
+		comSeguros.setNumeroPoliza(comseg.getNumeroPoliza());
+		
+		return csr.save(comSeguros);
+	}
+
+	@Override
+	public void eliminarCompaniaSeguro(Integer id) {
+		Optional<CompaniasSeguros> comDel = csr.findById(id);
+		
+		if(comDel.isPresent()){
+			csr.deleteById(id);
+		}
+	}
+
+	@Override
+	public void actualizarCompaniaSeguro(CompaniasSegurosDTO comseg) {
+		Optional<CompaniasSeguros> comDel = csr.findById(comseg.getId());
+		
+		if(comDel.isPresent()){
+			comDel.get().setId(comseg.getId());
+			comDel.get().setNombreCompania(comseg.getNombreCompania());
+			comDel.get().setNumeroPoliza(comseg.getNumeroPoliza());
+			
+			csr.save(comDel.get());
+		}
+	}
 
 }
