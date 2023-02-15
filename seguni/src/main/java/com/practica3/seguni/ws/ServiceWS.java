@@ -1,9 +1,15 @@
 package com.practica3.seguni.ws;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -320,4 +326,87 @@ public class ServiceWS implements ServiceInt{
 		}
 	}
 
+	@Override
+	public List<Clientes> buscarInicioCiudadClientes(String ciudad) {
+		return cr.findByCiudadStartingWithIgnoreCase(ciudad);
+	}
+
+	@Override
+	public List<Clientes> buscarCodPostalClientes(Integer cod) {
+		return cr.findByCodPostalEquals(cod);
+	}
+
+	@Override
+	public List<Peritos> buscarInicioNombrePeritos(String nom) {
+		return pr.findByNombrePeritoStartingWithIgnoreCase(nom);
+	}
+
+	@Override
+	public List<Peritos> buscarTelefonoPeritos(String tel) {
+		return pr.findByTelefonoContactoStartingWithIgnoreCase(tel);
+	}
+
+	@Override
+	public List<Companias> buscarNumeroViaMayorCompanias(Integer val) {
+		return comr.findByNumeroViaGreaterThan(val);
+	}
+
+	@Override
+	public List<Companias> buscarTelefonoTerminaCompanias(String tel) {
+		return comr.findByTelefonoContratacionEndingWith(tel);
+	}
+
+	@Override
+	public List<Seguros> buscarRamoSeguros(String ramo) {
+		return sr.findByRamoLikeIgnoreCaseOrderByNumeroPolizaAsc(ramo);
+	}
+
+	@Override
+	public List<Seguros> buscarFechaInicioSeguros(String fecha) {
+		SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy"); 
+		Date fechaInicio = null;
+		try {
+			fechaInicio = formato.parse(fecha);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return sr.findByFechaInicioBeforeOrderByNumeroPolizaDesc(fechaInicio);
+	}
+
+	@Override
+	public List<Siniestros> buscarAceptadoSiniestros(Character aceptado) {
+		return sir.findByAceptadoLikeOrderByIdSiniestroAsc(aceptado);
+	}
+
+	@Override
+	public List<Siniestros> buscarFechaSiniestro(String fecha) {
+		SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy"); 
+		Date fechaSiniestro = null;
+		try {
+			fechaSiniestro = formato.parse(fecha);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return sir.findByFechaSiniestroAfterOrderByIdSiniestroAsc(fechaSiniestro);
+	}
+
+	@Override
+	public Page<Clientes> verNumViaClientes(Integer num, Integer pag) {
+		Pageable paginador = PageRequest.of(pag, 3);
+		return cr.buscarNumViaPaginado(paginador, num);
+	}
+
+	@Override
+	public Page<Peritos> verApellidos(String ape, Integer pag) {
+		Pageable paginador = PageRequest.of(pag, 3);
+		return pr.buscarApellidosPaginado(paginador, ape);
+	}
+
+	@Override
+	public Page<CompaniasSeguros> verSeguros(Integer num, Integer pag) {
+		Pageable paginador = PageRequest.of(pag, 3);
+		return csr.buscarPorSeguros(paginador, num);
+	}
+	
+	
 }

@@ -2,6 +2,7 @@ package com.practica3.seguni.service_interface;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -99,4 +100,43 @@ public interface ServiceInt {
 	
 	@PutMapping("/auth/actualizarCompaniaSeguro")
 	public void actualizarCompaniaSeguro(@RequestBody CompaniasSegurosDTO comseg);
+	
+	@GetMapping("/auth/clientes/buscarInicioCiudad/{ciudad}")
+	public List<Clientes> buscarInicioCiudadClientes(@PathVariable("ciudad") String ciudad);
+	
+	@GetMapping("/auth/clientes/buscarCodPostal/{cod}")
+	public List<Clientes> buscarCodPostalClientes(@PathVariable("cod") Integer cod);
+	
+	@GetMapping("/auth/peritos/buscarInicioNombre/{nom}")
+	public List<Peritos> buscarInicioNombrePeritos(@PathVariable("nom") String nom);
+	
+	@GetMapping("/auth/peritos/buscarTelefono/{tel}")
+	public List<Peritos> buscarTelefonoPeritos(@PathVariable("tel") String tel);
+	
+	@GetMapping("/auth/companias/buscarNumeroViaMayor/{val}")
+	public List<Companias> buscarNumeroViaMayorCompanias(@PathVariable("val") Integer val);
+	
+	@GetMapping("/auth/companias/buscarTelefonoTermina/{tel}")
+	public List<Companias> buscarTelefonoTerminaCompanias(@PathVariable("tel") String tel);
+	
+	@GetMapping("/auth/seguros/buscarRamo/{ramo}")
+	public List<Seguros> buscarRamoSeguros(@PathVariable("ramo") String ramo);
+	
+	@GetMapping("/auth/seguros/buscarFechaInicio/{fecha}")
+	public List<Seguros> buscarFechaInicioSeguros(@PathVariable("fecha") String fecha);
+	
+	@GetMapping("/auth/siniestros/buscarAceptado/{aceptado}")
+	public List<Siniestros> buscarAceptadoSiniestros(@PathVariable("aceptado") Character aceptado);
+	
+	@GetMapping("/auth/siniestros/buscarFechaSiniestro/{fecha}")
+	public List<Siniestros> buscarFechaSiniestro(@PathVariable("fecha") String fecha);
+	
+	@GetMapping("/auth/clientes/buscarNumeroVia/{num}/{pag}")
+	public Page<Clientes> verNumViaClientes(@PathVariable("num") Integer num, @PathVariable("pag") Integer pag);
+
+	@GetMapping("/auth/peritos/buscarApellidos/{ape}/{pag}")
+	public Page<Peritos> verApellidos(@PathVariable("ape") String ape, @PathVariable("pag") Integer pag);
+	
+	@GetMapping("/auth/companiasSeguros/buscarSeguros/{num}/{pag}")
+	public Page<CompaniasSeguros> verSeguros(@PathVariable("num") Integer num, @PathVariable("pag") Integer pag);
 }
