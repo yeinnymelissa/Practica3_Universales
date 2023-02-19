@@ -18,6 +18,8 @@ import com.practica3.seguni.dto.ClientesDTO;
 import com.practica3.seguni.dto.CompaniasDTO;
 import com.practica3.seguni.dto.CompaniasSegurosDTO;
 import com.practica3.seguni.dto.PeritosDTO;
+import com.practica3.seguni.dto.SalidaFuncionDTO;
+import com.practica3.seguni.dto.SalidaProcedimientoDTO;
 import com.practica3.seguni.dto.SegurosDTO;
 import com.practica3.seguni.dto.SiniestrosDTO;
 import com.practica3.seguni.dto.UsuariosDTO;
@@ -139,4 +141,10 @@ public interface ServiceInt {
 	
 	@GetMapping("/auth/companiasSeguros/buscarSeguros/{num}/{pag}")
 	public Page<CompaniasSeguros> verSeguros(@PathVariable("num") Integer num, @PathVariable("pag") Integer pag);
+	
+	@GetMapping("/funcionProm/{info}/{num1}/{num2}")
+	public SalidaFuncionDTO ejectuarFuncionProm(@PathVariable String info,@PathVariable int num1,@PathVariable double num2);
+	
+	@GetMapping("/procedimiento/{info}/{num1}")
+	public SalidaProcedimientoDTO ejectuarProcedimiento(@PathVariable String info,@PathVariable int num1);
 }

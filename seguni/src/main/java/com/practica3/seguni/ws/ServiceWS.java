@@ -18,6 +18,8 @@ import com.practica3.seguni.dto.ClientesDTO;
 import com.practica3.seguni.dto.CompaniasDTO;
 import com.practica3.seguni.dto.CompaniasSegurosDTO;
 import com.practica3.seguni.dto.PeritosDTO;
+import com.practica3.seguni.dto.SalidaFuncionDTO;
+import com.practica3.seguni.dto.SalidaProcedimientoDTO;
 import com.practica3.seguni.dto.SegurosDTO;
 import com.practica3.seguni.dto.SiniestrosDTO;
 import com.practica3.seguni.dto.UsuariosDTO;
@@ -36,6 +38,7 @@ import com.practica3.seguni.repository.PeritosRepository;
 import com.practica3.seguni.repository.SegurosRepository;
 import com.practica3.seguni.repository.SiniestrosRepository;
 import com.practica3.seguni.repository.UsuariosRepository;
+import com.practica3.seguni.service.ServicioGeneral;
 import com.practica3.seguni.service_interface.ServiceInt;
 
 @Component
@@ -64,6 +67,9 @@ public class ServiceWS implements ServiceInt{
 	
 	@Autowired
 	CompaniasSegurosRepository csr;
+	
+	@Autowired
+	ServicioGeneral sg;
 	
 	@Override
 	public List<Clientes> buscarClientes() {
@@ -406,6 +412,16 @@ public class ServiceWS implements ServiceInt{
 	public Page<CompaniasSeguros> verSeguros(Integer num, Integer pag) {
 		Pageable paginador = PageRequest.of(pag, 3);
 		return csr.buscarPorSeguros(paginador, num);
+	}
+
+	@Override
+	public SalidaFuncionDTO ejectuarFuncionProm(String info, int num1, double num2) {
+		return sg.funcionPromedio(info, num1, num2);
+	}
+
+	@Override
+	public SalidaProcedimientoDTO ejectuarProcedimiento(String info, int num1) {
+		return sg.procedimientoContadorSeguros(info, num1);
 	}
 	
 	
