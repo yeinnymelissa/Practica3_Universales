@@ -8,8 +8,8 @@ La aplicación para funcionar necesita de JAVA 17, Maven, la base de datos de Or
 https://spring.io/tools 
 
 La aplicación se ejectua sobre el puerto 8383, si se desea cambiar el puerto por alguna razon se realiza en el archivo _application.properties_ en donde contiene la siguiente sintáxis:
-
-`server.port= {número de puerto}`  
+<pre><code>server.port= {número de puerto}
+</code></pre>
 
 En donde en _número de puerto_ se debe modificar al número deseado. 
 
