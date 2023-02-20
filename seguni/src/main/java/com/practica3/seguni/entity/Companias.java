@@ -13,7 +13,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="COMPANIAS")
+@Table(name="COMPANIAS", schema = "SEGUNI" )
 public class Companias implements Serializable{
 
 	private static final long serialVersionUID = -4047601782751066345L;
