@@ -1,30 +1,16 @@
+
 package com.practica3.seguni.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import lombok.Data;
 
-public class SalidaFuncionDTO {
+@Data
+public class SalidaFuncionDTO implements Serializable {
+
+	private static final long serialVersionUID = 3471345066424054640L;
 	private String info;
 	private String salida;
 	private BigDecimal resultado;
-	
-	public String getInfo() {
-		return info;
-	}
-	public void setInfo(String info) {
-		this.info = info;
-	}
-	public String getSalida() {
-		return salida;
-	}
-	public void setSalida(String salida) {
-		this.salida = salida;
-	}
-	public BigDecimal getResultado() {
-		return resultado;
-	}
-	public void setResultado(BigDecimal resultado) {
-		this.resultado = resultado;
-	}
-	
 	
 }

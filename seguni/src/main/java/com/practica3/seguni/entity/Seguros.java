@@ -1,9 +1,9 @@
+
 package com.practica3.seguni.entity;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +14,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="SEGUROS")
+@Table(name="SEGUROS", schema = "SEGUNI")
 public class Seguros implements Serializable{
 
 	private static final long serialVersionUID = -2878084880149477798L;
@@ -22,7 +22,7 @@ public class Seguros implements Serializable{
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO,
 		generator="sequenciaSeguros") 
-	@SequenceGenerator(name="sequenciaSeguros",sequenceName="sec_seguros", allocationSize=1)
+	@SequenceGenerator(name="sequenciaSeguros",sequenceName="sec_seguros", allocationSize=1, initialValue = 1, schema = "SEGUNI")
 	@Column(name="NUMERO_POLIZA")
 	private int numeroPoliza;
 	

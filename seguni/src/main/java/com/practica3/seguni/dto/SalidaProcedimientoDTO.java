@@ -1,23 +1,15 @@
+
 package com.practica3.seguni.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import lombok.Data;
 
-public class SalidaProcedimientoDTO {
+@Data
+public class SalidaProcedimientoDTO implements Serializable {
+
+	private static final long serialVersionUID = -7133965831454782463L;
 	private String info;
 	private BigDecimal contador;
-	
-	public String getInfo() {
-		return info;
-	}
-	public void setInfo(String info) {
-		this.info = info;
-	}
-	public BigDecimal getContador() {
-		return contador;
-	}
-	public void setContador(BigDecimal contador) {
-		this.contador = contador;
-	}
-	
 	
 }
