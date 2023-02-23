@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,9 +13,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name="SEGUROS")
+@Data
 public class Seguros implements Serializable{
 
 	private static final long serialVersionUID = -2878084880149477798L;
@@ -46,69 +49,5 @@ public class Seguros implements Serializable{
 	
 	@OneToMany(mappedBy="numeroPoliza")
     private List<Siniestros> siniestro;
-
-	public int getNumeroPoliza() {
-		return numeroPoliza;
-	}
-
-	public void setNumeroPoliza(int numeroPoliza) {
-		this.numeroPoliza = numeroPoliza;
-	}
-
-	public String getRamo() {
-		return ramo;
-	}
-
-	public void setRamo(String ramo) {
-		this.ramo = ramo;
-	}
-
-	public Date getFechaInicio() {
-		return fechaInicio;
-	}
-
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
-
-	public Date getFechaVencimiento() {
-		return fechaVencimiento;
-	}
-
-	public void setFechaVencimiento(Date fechaVencimiento) {
-		this.fechaVencimiento = fechaVencimiento;
-	}
-
-	public String getCondicionesParticulares() {
-		return condicionesParticulares;
-	}
-
-	public void setCondicionesParticulares(String condicionesParticulares) {
-		this.condicionesParticulares = condicionesParticulares;
-	}
-
-	public String getObservaciones() {
-		return observaciones;
-	}
-
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
-	}
-
-	public String getDniCl() {
-		return dniCl;
-	}
-
-	public void setDniCl(String dniCl) {
-		this.dniCl = dniCl;
-	}
-
-	public List<Siniestros> getSiniestros() {
-		return siniestro;
-	}
-
-	public void setSiniestros(List<Siniestros> siniestro) {
-		this.siniestro = siniestro;
-	}
 	
 }

@@ -132,7 +132,7 @@ public class ServiceWS implements ServiceInt{
 			for(Seguros segu : seg) {
 				Optional<Seguros> segDel = sr.findById(segu.getNumeroPoliza());
 				if(segDel.isPresent()) {
-					sir.deleteAll(segDel.get().getSiniestros());
+					sir.deleteAll(segDel.get().getSiniestro());
 					sr.delete(segDel.get());
 				}
 			}
@@ -170,7 +170,7 @@ public class ServiceWS implements ServiceInt{
 		
 		if(segDel.isPresent()){
 			
-			List<Siniestros> siniestros = segDel.get().getSiniestros();
+			List<Siniestros> siniestros = segDel.get().getSiniestro();
 			sir.deleteAll(siniestros);
 			sr.deleteById(id);
 		}

@@ -3,7 +3,6 @@ package com.practica3.seguni.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,9 +12,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name="SINIESTROS")
+@Data
 public class Siniestros implements Serializable{
 
 	private static final long serialVersionUID = -103838685420150066L;
@@ -45,62 +46,5 @@ public class Siniestros implements Serializable{
 	@ManyToOne
     @JoinColumn(name = "DNI_PERITO")
 	private Peritos perito;
-
-	public int getIdSiniestro() {
-		return idSiniestro;
-	}
-
-	public void setIdSiniestro(int idSiniestro) {
-		this.idSiniestro = idSiniestro;
-	}
-
-	public Date getFechaSiniestro() {
-		return fechaSiniestro;
-	}
-
-	public void setFechaSiniestro(Date fechaSiniestro) {
-		this.fechaSiniestro = fechaSiniestro;
-	}
-
-	public String getCausas() {
-		return causas;
-	}
-
-	public void setCausas(String causas) {
-		this.causas = causas;
-	}
-
-	public char getAceptado() {
-		return aceptado;
-	}
-
-	public void setAceptado(char aceptado) {
-		this.aceptado = aceptado;
-	}
-
-	public double getIndemnizacion() {
-		return indemnizacion;
-	}
-
-	public void setIndemnizacion(double indemnizacion) {
-		this.indemnizacion = indemnizacion;
-	}
-
-	public int getNumeroPoliza() {
-		return numeroPoliza;
-	}
-
-	public void setNumeroPoliza(int numeroPoliza) {
-		this.numeroPoliza = numeroPoliza;
-	}
-
-	public Peritos getPerito() {
-		return perito;
-	}
-
-	public void setPerito(Peritos perito) {
-		this.perito = perito;
-	}
-
 	
 }

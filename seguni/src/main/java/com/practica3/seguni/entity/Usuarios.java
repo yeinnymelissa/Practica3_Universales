@@ -6,9 +6,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name="USUARIOS")
+@Data
 public class Usuarios implements Serializable{
 	
 	private static final long serialVersionUID = 5102227664867517990L;
@@ -20,19 +22,4 @@ public class Usuarios implements Serializable{
 	@Column(name="PASSWORD")
 	private String password;
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 }
