@@ -1,3 +1,4 @@
+
 package com.practica3.seguni.ws;
 
 import java.text.ParseException;
@@ -5,7 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
 import com.practica3.seguni.dto.ClientesDTO;
 import com.practica3.seguni.dto.CompaniasDTO;
 import com.practica3.seguni.dto.CompaniasSegurosDTO;
@@ -44,6 +46,8 @@ import com.practica3.seguni.service_interface.ServiceInt;
 @Component
 public class ServiceWS implements ServiceInt{
 	
+	private static final Log LOG = LogFactory.getLog(ServiceWS.class);
+	
 	@Autowired
 	ClientesRepository cr;
 	
@@ -70,6 +74,9 @@ public class ServiceWS implements ServiceInt{
 	
 	@Autowired
 	ServicioGeneral sg;
+	
+	@Autowired
+	ModelMapper modelMapper;
 	
 	@Override
 	public List<Clientes> buscarClientes() {
@@ -241,19 +248,7 @@ public class ServiceWS implements ServiceInt{
 
 	@Override
 	public Peritos guardarPeritos(PeritosDTO perito) {
-		Peritos peri = new Peritos();
-		
-		peri.setDniPerito(perito.getDniPerito());
-		peri.setNombrePerito(perito.getNombrePerito());
-		peri.setApellidoPerito1(perito.getApellidoPerito1());
-		peri.setApellidoPerito2(perito.getApellidoPerito2());
-		peri.setTelefonoContacto(perito.getTelefonoContacto());
-		peri.setTelefonoOficina(perito.getTelefonoOficina());
-		peri.setClaseVia(perito.getClaseVia());
-		peri.setNombreVia(perito.getNombreVia());
-		peri.setNumeroVia(perito.getNumeroVia());
-		peri.setCodPostal(perito.getCodPostal());
-		peri.setCiudad(perito.getCiudad());
+		Peritos peri = modelMapper.map(perito, Peritos.class);
 		return pr.save(peri);
 	}
 
@@ -374,7 +369,7 @@ public class ServiceWS implements ServiceInt{
 		try {
 			fechaInicio = formato.parse(fecha);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			LOG.warn(e);
 		}
 		return sr.findByFechaInicioBeforeOrderByNumeroPolizaDesc(fechaInicio);
 	}
