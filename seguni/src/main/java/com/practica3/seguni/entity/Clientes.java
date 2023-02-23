@@ -1,9 +1,8 @@
+
 package com.practica3.seguni.entity;
 
 import java.io.Serializable;
 import java.util.List;
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,7 +11,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="CLIENTES")
+@Table(name="CLIENTES", schema = "SEGUNI")
 @Data
 public class Clientes implements Serializable{
 

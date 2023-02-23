@@ -1,8 +1,8 @@
+
 package com.practica3.seguni.entity;
 
 import java.io.Serializable;
 import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,11 +14,12 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="COMPANIAS")
+@Table(name="COMPANIAS", schema = "SEGUNI")
 @Data
 public class Companias implements Serializable{
 
 	private static final long serialVersionUID = -4047601782751066345L;
+
 	@Id
 	@Column(name="NOMBRE_COMPANIA")
 	private String nombreCompania;
@@ -51,5 +52,5 @@ public class Companias implements Serializable{
     )
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Seguros> seguros;
-	
+
 }
