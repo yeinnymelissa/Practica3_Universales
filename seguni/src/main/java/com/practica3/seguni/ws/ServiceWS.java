@@ -75,9 +75,6 @@ public class ServiceWS implements ServiceInt{
 	@Autowired
 	ServicioGeneral sg;
 	
-	@Autowired
-	ModelMapper modelMapper;
-	
 	@Override
 	public List<Clientes> buscarClientes() {
 		return cr.findAll();
@@ -248,7 +245,9 @@ public class ServiceWS implements ServiceInt{
 
 	@Override
 	public Peritos guardarPeritos(PeritosDTO perito) {
-		Peritos peri = modelMapper.map(perito, Peritos.class);
+		ModelMapper mp = new ModelMapper();
+		Peritos peri = new Peritos();
+		mp.map(perito, peri);
 		return pr.save(peri);
 	}
 
