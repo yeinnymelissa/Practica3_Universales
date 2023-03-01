@@ -17,6 +17,7 @@ public interface PeritosRepository extends JpaRepository<Peritos, Serializable>{
 
 	public List<Peritos> findByNombrePeritoStartingWithIgnoreCase(String nombre);
 	public List<Peritos> findByTelefonoContactoStartingWithIgnoreCase(String telefono);
+	public Peritos findByDniPerito(String dni);
 	
 	@Query(value = "SELECT * FROM PERITOS WHERE LOWER(APELLIDO_PERITO1) LIKE :val%  ORDER BY DNI_PERITO ASC", 
 			countQuery = "SELECT COUNT(DNI_PERITO) FROM PERITOS",

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,7 +23,7 @@ public class Seguros implements Serializable{
 	private static final long serialVersionUID = -2878084880149477798L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO,
+	@GeneratedValue(strategy= GenerationType.SEQUENCE,
 		generator="sequenciaSeguros") 
 	@SequenceGenerator(name="sequenciaSeguros",sequenceName="sec_seguros", allocationSize=1, initialValue = 1, schema = "SEGUNI")
 	@Column(name="NUMERO_POLIZA")
@@ -46,7 +47,7 @@ public class Seguros implements Serializable{
 	@Column(name="DNI_CL")
 	private String dniCl;
 	
-	@OneToMany(mappedBy="numeroPoliza")
+	@OneToMany(mappedBy="numeroPoliza", fetch = FetchType.EAGER)
     private List<Siniestros> siniestro;
 	
 }

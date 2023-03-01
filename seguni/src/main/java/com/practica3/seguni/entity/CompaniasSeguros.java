@@ -19,7 +19,7 @@ public class CompaniasSeguros implements Serializable{
 	private static final long serialVersionUID = 680425397304454943L;
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO,
+	@GeneratedValue(strategy= GenerationType.SEQUENCE,
 		generator="secuenciaComseg") 
 	@SequenceGenerator(name="secuenciaComseg",sequenceName="sec_comseg", allocationSize=1, initialValue = 1, schema = "SEGUNI")
 	@Column(name="ID")

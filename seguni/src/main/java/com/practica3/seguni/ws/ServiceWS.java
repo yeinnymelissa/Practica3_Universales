@@ -120,7 +120,7 @@ public class ServiceWS implements ServiceInt{
 	}
 
 	@Override
-	public void eliminarCliente(String id) {
+	public boolean eliminarCliente(String id) {
 		Optional<Clientes> cliDel = cr.findById(id);
 		
 		if(cliDel.isPresent()){
@@ -136,8 +136,11 @@ public class ServiceWS implements ServiceInt{
 			sr.deleteAll(seg);
 			
 			cr.delete(cliDel.get());
+			return true;
 			
 		}
+		
+		return false;
 		
 	}
 
@@ -162,7 +165,7 @@ public class ServiceWS implements ServiceInt{
 	}
 
 	@Override
-	public void eliminarSeguro(Integer id) {
+	public boolean eliminarSeguro(Integer id) {
 		Optional<Seguros> segDel = sr.findById(id);
 		
 		if(segDel.isPresent()){
@@ -170,11 +173,13 @@ public class ServiceWS implements ServiceInt{
 			List<Siniestros> siniestros = segDel.get().getSiniestro();
 			sir.deleteAll(siniestros);
 			sr.deleteById(id);
+			return true;
 		}
+		return false;
 	}
 
 	@Override
-	public void actualizarSeguro(SegurosDTO seguro) {
+	public Seguros actualizarSeguro(SegurosDTO seguro) {
 		Optional<Seguros> segUp = sr.findById(seguro.getNumeroPoliza());
 		if(segUp.isPresent()){
 			segUp.get().setRamo(seguro.getRamo());
@@ -183,9 +188,10 @@ public class ServiceWS implements ServiceInt{
 			segUp.get().setCondicionesParticulares(seguro.getCondicionesParticulares());
 			segUp.get().setObservaciones(seguro.getObservaciones());
 			segUp.get().setDniCl(seguro.getDniCl());
-			sr.save(segUp.get());
+			return sr.save(segUp.get());
 			
 		}
+		return null;
 	}
 
 	@Override
@@ -215,16 +221,18 @@ public class ServiceWS implements ServiceInt{
 	}
 
 	@Override
-	public void eliminarSiniestro(Integer id) {
+	public boolean eliminarSiniestro(Integer id) {
 		Optional<Siniestros> sinDel = sir.findById(id);
 		
 		if(sinDel.isPresent()){
 			sir.deleteById(id);
+			return true;
 		}
+		return false;
 	}
 
 	@Override
-	public void actualizarSiniestro(SiniestrosDTO siniestro) {
+	public Siniestros actualizarSiniestro(SiniestrosDTO siniestro) {
 		Optional<Siniestros> sinUp = sir.findById(siniestro.getIdSiniestro());
 		
 		if(sinUp.isPresent()){
@@ -234,8 +242,10 @@ public class ServiceWS implements ServiceInt{
 			sinUp.get().setIndemnizacion(siniestro.getIndemnizacion());
 			sinUp.get().setNumeroPoliza(siniestro.getNumeroPoliza());
 			sinUp.get().setPerito(siniestro.getPerito());
-			sir.save(sinUp.get());
+			return sir.save(sinUp.get());
 		}
+		
+		return null;
 	}
 
 	@Override
@@ -252,11 +262,13 @@ public class ServiceWS implements ServiceInt{
 	}
 
 	@Override
-	public void eliminarPeritos(String id) {
+	public boolean eliminarPeritos(String id) {
 		Optional <Peritos> periDel =  pr.findById(id);
 		if(periDel.isPresent()) {
 			pr.delete(periDel.get());
+			return true;
 		}
+		return false;
 	}
 
 	@Override
@@ -280,12 +292,14 @@ public class ServiceWS implements ServiceInt{
 	}
 
 	@Override
-	public void eliminarCompanias(String id) {
+	public boolean eliminarCompanias(String id) {
 		Optional<Companias> comDel = comr.findById(id);
 		
 		if(comDel.isPresent()){
 			comr.deleteById(id);
+			return true;
 		}
+		return false;
 	}
 
 	@Override
@@ -305,16 +319,18 @@ public class ServiceWS implements ServiceInt{
 	}
 
 	@Override
-	public void eliminarCompaniaSeguro(Integer id) {
+	public boolean eliminarCompaniaSeguro(Integer id) {
 		Optional<CompaniasSeguros> comDel = csr.findById(id);
 		
 		if(comDel.isPresent()){
 			csr.deleteById(id);
+			return true;
 		}
+		return false;
 	}
 
 	@Override
-	public void actualizarCompaniaSeguro(CompaniasSegurosDTO comseg) {
+	public CompaniasSeguros actualizarCompaniaSeguro(CompaniasSegurosDTO comseg) {
 		Optional<CompaniasSeguros> comDel = csr.findById(comseg.getId());
 		
 		if(comDel.isPresent()){
@@ -322,8 +338,9 @@ public class ServiceWS implements ServiceInt{
 			comDel.get().setNombreCompania(comseg.getNombreCompania());
 			comDel.get().setNumeroPoliza(comseg.getNumeroPoliza());
 			
-			csr.save(comDel.get());
+			return csr.save(comDel.get());
 		}
+		return null;
 	}
 
 	@Override

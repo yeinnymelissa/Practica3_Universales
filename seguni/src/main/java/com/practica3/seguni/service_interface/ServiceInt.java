@@ -41,7 +41,7 @@ public interface ServiceInt {
 	public Clientes  guardarClientes(@RequestBody ClientesDTO cliente);
 	
 	@DeleteMapping("/auth/eliminarCliente/{id}")
-	public void eliminarCliente(@PathVariable("id") String id);
+	public boolean eliminarCliente(@PathVariable("id") String id);
 	
 	@GetMapping("/hola")
 	public String  holaMundo();
@@ -56,10 +56,10 @@ public interface ServiceInt {
 	public Seguros  guardarSeguros(@RequestBody SegurosDTO seguro);
 	
 	@DeleteMapping("/auth/eliminarSeguro/{id}")
-	public void eliminarSeguro(@PathVariable("id") Integer id);
+	public boolean eliminarSeguro(@PathVariable("id") Integer id);
 	
 	@PutMapping("/auth/actualizarSeguro")
-	public void actualizarSeguro(@RequestBody SegurosDTO seguro);
+	public Seguros actualizarSeguro(@RequestBody SegurosDTO seguro);
 	
 	@GetMapping("/auth/consultarSiniestros")
 	public List<Siniestros> buscarSiniestros();
@@ -68,10 +68,10 @@ public interface ServiceInt {
 	public Siniestros  guardarSiniestros(@RequestBody SiniestrosDTO siniestro);
 	
 	@DeleteMapping("/auth/eliminarSiniestro/{id}")
-	public void eliminarSiniestro(@PathVariable("id") Integer id);
+	public boolean eliminarSiniestro(@PathVariable("id") Integer id);
 	
 	@PutMapping("/auth/actualizarSiniestro")
-	public void actualizarSiniestro(@RequestBody SiniestrosDTO siniestro);
+	public Siniestros actualizarSiniestro(@RequestBody SiniestrosDTO siniestro);
 	
 	@GetMapping("/auth/consultarPeritos")
 	public List<Peritos> buscarPeritos();
@@ -80,7 +80,7 @@ public interface ServiceInt {
 	public Peritos  guardarPeritos(@RequestBody PeritosDTO perito);
 	
 	@DeleteMapping("/auth/eliminarPeritos/{id}")
-	public void eliminarPeritos(@PathVariable("id") String id);
+	public boolean eliminarPeritos(@PathVariable("id") String id);
 	
 	@GetMapping("/auth/consultarCompanias")
 	public List<Companias> buscarCompanias();
@@ -89,7 +89,7 @@ public interface ServiceInt {
 	public Companias  guardarCompanias(@RequestBody CompaniasDTO compania);
 	
 	@DeleteMapping("/auth/eliminarCompanias/{id}")
-	public void eliminarCompanias(@PathVariable("id") String id);
+	public boolean eliminarCompanias(@PathVariable("id") String id);
 	
 	@GetMapping("/auth/consultarCompaniaSeguros")
 	public List<CompaniasSeguros> buscarCompaniaSeguros();
@@ -98,10 +98,10 @@ public interface ServiceInt {
 	public CompaniasSeguros  guardarCompaniaSeguros(@RequestBody CompaniasSegurosDTO comseg);
 	
 	@DeleteMapping("/auth/eliminarCompaniaSeguros/{id}")
-	public void eliminarCompaniaSeguro(@PathVariable("id") Integer id);
+	public boolean eliminarCompaniaSeguro(@PathVariable("id") Integer id);
 	
 	@PutMapping("/auth/actualizarCompaniaSeguro")
-	public void actualizarCompaniaSeguro(@RequestBody CompaniasSegurosDTO comseg);
+	public CompaniasSeguros actualizarCompaniaSeguro(@RequestBody CompaniasSegurosDTO comseg);
 	
 	@GetMapping("/auth/clientes/buscarInicioCiudad/{ciudad}")
 	public List<Clientes> buscarInicioCiudadClientes(@PathVariable("ciudad") String ciudad);
