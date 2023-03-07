@@ -9,8 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import com.practica3.seguni.entity.Clientes;
+import entity.Clientes;
 
 @Repository("clientesRepository")
 public interface ClientesRepository extends JpaRepository<Clientes, Serializable>{

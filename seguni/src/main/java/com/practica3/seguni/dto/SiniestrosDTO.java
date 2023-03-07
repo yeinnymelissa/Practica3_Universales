@@ -3,7 +3,7 @@ package com.practica3.seguni.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import com.practica3.seguni.entity.Peritos;
+import entity.Peritos;
 import lombok.Data;
 
 @Data

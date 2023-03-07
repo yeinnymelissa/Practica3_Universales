@@ -9,8 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.practica3.seguni.entity.CompaniasSeguros;
-
+import entity.CompaniasSeguros;
 @Repository("companiasSegurosRepository")
 public interface CompaniasSegurosRepository extends JpaRepository<CompaniasSeguros, Serializable>{
 	@Query(value = "SELECT * FROM COMPANIAS_SEGUROS WHERE NUMERO_POLIZA = :val ORDER BY ID ASC", 

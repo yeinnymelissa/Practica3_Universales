@@ -1,0 +1,13 @@
+jwt:
+  secret: secret
+server:
+  port: 8383
+spring:
+  datasource:
+    hikari:
+      driver-class-name: oracle.jdbc.OracleDriver
+      jdbc-url: jdbc:oracle:thin:@//172.26.96.1:1521/XE
+      password: SEGUNI
+      username: SEGUNI
+  jpa:
+    show-sql: true

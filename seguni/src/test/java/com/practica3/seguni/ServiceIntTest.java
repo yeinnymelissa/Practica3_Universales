@@ -22,12 +22,12 @@ import com.practica3.seguni.dto.CompaniasSegurosDTO;
 import com.practica3.seguni.dto.PeritosDTO;
 import com.practica3.seguni.dto.SegurosDTO;
 import com.practica3.seguni.dto.SiniestrosDTO;
-import com.practica3.seguni.entity.Clientes;
-import com.practica3.seguni.entity.Companias;
-import com.practica3.seguni.entity.CompaniasSeguros;
-import com.practica3.seguni.entity.Peritos;
-import com.practica3.seguni.entity.Seguros;
-import com.practica3.seguni.entity.Siniestros;
+import entity.Clientes;
+import entity.Companias;
+import entity.CompaniasSeguros;
+import entity.Peritos;
+import entity.Seguros;
+import entity.Siniestros;
 import com.practica3.seguni.repository.PeritosRepository;
 import com.practica3.seguni.ws.ServiceWS;
 

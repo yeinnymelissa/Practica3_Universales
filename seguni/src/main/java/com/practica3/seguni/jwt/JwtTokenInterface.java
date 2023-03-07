@@ -2,7 +2,7 @@ package com.practica3.seguni.jwt;
 
 import java.util.Map;
 
-import com.practica3.seguni.entity.Usuarios;
+import entity.Usuarios;
 
 
 public interface JwtTokenInterface {
