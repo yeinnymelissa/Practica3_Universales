@@ -113,7 +113,8 @@ public class ServiceWS implements ServiceInt{
 			if(usuarioTest == null) {
 				return new ResponseEntity<>("Usuario o password invalido.", HttpStatus.BAD_REQUEST);
 			}
-			return new ResponseEntity<>(jwtGenerator.generateToken(usuarioTest), HttpStatus.OK);
+			usuarioDto.setToken(jwtGenerator.generateToken(usuarioTest));
+			return new ResponseEntity<>(usuarioDto, HttpStatus.OK);
 	    } catch (Exception e) {
 	       return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
