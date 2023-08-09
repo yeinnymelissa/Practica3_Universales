@@ -784,7 +784,7 @@ class ServiceIntTest {
 		
 		@Test
 		void verNumViaClientesTest() {
-			Page<Clientes> inicio = service.verNumViaClientes(1, 0);
+			Page<Clientes> inicio = service.verNumViaClientes(1, 0,3);
 			assertNotNull(inicio, "No hay clientes que tengan un numero de via mayor al numero propuesto.");
 		}
 		

@@ -16,6 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
+import com.practica3.seguni.dto.ClientesArray;
 import com.practica3.seguni.dto.ClientesDTO;
 import com.practica3.seguni.dto.CompaniasDTO;
 import com.practica3.seguni.dto.CompaniasSegurosDTO;
@@ -409,8 +411,8 @@ public class ServiceWS implements ServiceInt{
 	}
 
 	@Override
-	public Page<Clientes> verNumViaClientes(Integer num, Integer pag) {
-		Pageable paginador = PageRequest.of(pag, 3);
+	public Page<Clientes> verNumViaClientes(Integer num, Integer pag, Integer numr) {
+		Pageable paginador = PageRequest.of(pag, numr);
 		return cr.buscarNumViaPaginado(paginador, num);
 	}
 
@@ -434,6 +436,28 @@ public class ServiceWS implements ServiceInt{
 	@Override
 	public SalidaProcedimientoDTO ejectuarProcedimiento(String info, int num1) {
 		return sg.procedimientoContadorSeguros(info, num1);
+	}
+
+	@Override
+	public void guardarVariosClientes(ClientesArray clientes) {
+		for (ClientesDTO c : clientes.getClientes()) {
+			Clientes cli = new Clientes();
+		
+			cli.setDniCl(c.getDniCl());
+			cli.setNombreCl(c.getNombreCl());
+			cli.setApellido1(c.getApellido1());
+			cli.setApellido2(c.getApellido2());
+			cli.setClaseVia(c.getClaseVia());
+			cli.setNombreVia(c.getNombreVia());
+			cli.setNumeroVia(c.getNumeroVia());
+			cli.setCodPostal(c.getCodPostal());
+			cli.setCiudad(c.getCiudad());
+			cli.setTelefono(c.getTelefono());
+			cli.setObservaciones(c.getObservaciones());
+			
+			cr.save(cli);
+			
+		}
 	}
 	
 	

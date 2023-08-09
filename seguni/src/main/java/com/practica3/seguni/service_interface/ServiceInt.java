@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.practica3.seguni.dto.ClientesArray;
 import com.practica3.seguni.dto.ClientesDTO;
 import com.practica3.seguni.dto.CompaniasDTO;
 import com.practica3.seguni.dto.CompaniasSegurosDTO;
@@ -39,6 +40,9 @@ public interface ServiceInt {
 	
 	@PostMapping("/auth/guardarClientes")
 	public Clientes  guardarClientes(@RequestBody ClientesDTO cliente);
+	
+	@PostMapping("/auth/guardarClientes/cargaMasiva")
+	public void guardarVariosClientes(@RequestBody ClientesArray clientes);
 	
 	@DeleteMapping("/auth/eliminarCliente/{id}")
 	public boolean eliminarCliente(@PathVariable("id") String id);
@@ -133,8 +137,8 @@ public interface ServiceInt {
 	@GetMapping("/auth/siniestros/buscarFechaSiniestro/{fecha}")
 	public List<Siniestros> buscarFechaSiniestro(@PathVariable("fecha") String fecha);
 	
-	@GetMapping("/auth/clientes/buscarNumeroVia/{num}/{pag}")
-	public Page<Clientes> verNumViaClientes(@PathVariable("num") Integer num, @PathVariable("pag") Integer pag);
+	@GetMapping("/auth/clientes/buscarNumeroVia/{num}/{pag}/{numr}")
+	public Page<Clientes> verNumViaClientes(@PathVariable("num") Integer num, @PathVariable("pag") Integer pag, @PathVariable("numr") Integer numr);
 
 	@GetMapping("/auth/peritos/buscarApellidos/{ape}/{pag}")
 	public Page<Peritos> verApellidos(@PathVariable("ape") String ape, @PathVariable("pag") Integer pag);
